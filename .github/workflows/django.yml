@@ -6,16 +6,15 @@ on:
       - main
 
 jobs:
-
   prebuild_stage:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -27,31 +26,30 @@ jobs:
       - name: Install OS Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y jq unzip wget
+          sudo apt-get install -y jq unzip wget zip
 
-      - name: Install Java 17
+      - name: Install Amazon Corretto JDK 17
         run: |
           wget https://corretto.aws/downloads/latest/amazon-corretto-17-x64-linux-jdk.deb
           sudo dpkg -i amazon-corretto-17-x64-linux-jdk.deb
           java -version
-
 
   pylint_stage:
     runs-on: ubuntu-latest
     needs: prebuild_stage
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install Dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pylint coverage
 
@@ -63,7 +61,7 @@ jobs:
       - name: Run Django Tests
         run: |
           coverage run --source='.' manage.py test
-          coverage xml -i
+          coverage xml
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
@@ -71,10 +69,34 @@ jobs:
           name: coverage-report
           path: coverage.xml
 
+  package_stage:
+    runs-on: ubuntu-latest
+    needs: pylint_stage
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Deployment Package
+        run: |
+          zip -r deploy.zip . \
+            -x "*.git*" \
+            -x "__pycache__/*" \
+            -x "*.pyc" \
+            -x "*.pyo" \
+            -x ".github/*" \
+            -x "venv/*" \
+            -x ".venv/*"
+
+      - name: Upload Deployment Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-package
+          path: deploy.zip
 
   deploy_stage:
     runs-on: ubuntu-latest
-    needs: pylint_stage
+    needs: package_stage
 
     steps:
       - name: Download Deployment Package
@@ -82,8 +104,13 @@ jobs:
         with:
           name: deploy-package
 
+      - name: Verify Package
+        run: |
+          ls -lah
+          unzip -l deploy.zip | head
+
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -91,7 +118,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy to Elastic Beanstalk
-        uses: einaregilsson/beanstalk-deploy@v21
+        uses: einaregilsson/beanstalk-deploy@v22
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -99,7 +126,7 @@ jobs:
           application_name: expense-tracker
           environment_name: Expense-tracker-env
           region: us-east-1
-          use_existing_version_if_available: true
-          version_label: "build-${{ github.run_number }}"
+          version_label: build-${{ github.run_number }}
           deployment_package: deploy.zip
-          wait_for_deployment: false
+          use_existing_version_if_available: true
+          wait_for_deployment: true
