@@ -1,0 +1,421 @@
+/* Modern Expense Tracker Styles */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --dark-bg: #1a1a2e;
+    --card-bg: #16213e;
+    --text-light: #ffffff;
+    --text-muted: #a0a0a0;
+    --border-radius: 15px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: var(--text-light);
+    min-height: 100vh;
+}
+
+/* Navbar Styles */
+.sb-topnav {
+    background: var(--primary-gradient) !important;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    padding: 1rem 2rem;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+/* Sidebar Styles */
+.sb-sidenav {
+    background: rgba(22, 33, 62, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.sb-sidenav .nav-link {
+    color: var(--text-light);
+    padding: 1rem 1.5rem;
+    margin: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.sb-sidenav .nav-link:hover {
+    background: var(--primary-gradient);
+    transform: translateX(10px);
+}
+
+.sb-sidenav-menu-heading {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1rem 1.5rem 0.5rem;
+}
+
+/* Card Styles */
+.card {
+    background: var(--card-bg) !important;
+    border: none !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: var(--box-shadow) !important;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+.card-header {
+    background: var(--primary-gradient) !important;
+    color: var(--text-light) !important;
+    font-weight: 600;
+    padding: 1.5rem;
+    border-bottom: none !important;
+}
+
+
+/* Button Styles */
+.btn, .b1, .b2, button[type="submit"] {
+    background: var(--secondary-gradient) !important;
+    border: none !important;
+    border-radius: 25px !important;
+    padding: 0.75rem 2rem !important;
+    font-weight: 600 !important;
+    color: var(--text-light) !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4) !important;
+}
+
+.btn:hover, .b1:hover, .b2:hover, button[type="submit"]:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6) !important;
+}
+
+.btn-success {
+    background: var(--success-gradient) !important;
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4) !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%) !important;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4) !important;
+}
+
+/* Form Styles */
+.form-control, input[type="text"], input[type="email"], 
+input[type="password"], input[type="number"], 
+input[type="date"], select {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 10px !important;
+    color: var(--text-light) !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-control:focus, input:focus, select:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: #667eea !important;
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3) !important;
+    outline: none !important;
+}
+
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-top: 0.3rem;
+    cursor: pointer;
+}
+
+label {
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Table Styles */
+.table {
+    background: var(--card-bg) !important;
+    color: var(--text-light) !important;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.table thead {
+    background: var(--primary-gradient);
+}
+
+.table tbody tr {
+    transition: background 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(102, 126, 234, 0.2);
+}
+
+/* Alert Messages */
+.alert {
+    border-radius: var(--border-radius) !important;
+    border: none !important;
+    padding: 1rem 1.5rem !important;
+    margin: 1rem !important;
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Container Styles */
+.container-fluid {
+    padding: 2rem;
+}
+
+.container2 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Profile Styles */
+.emp-profile {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+}
+
+.profile-head h5 {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.profile-head h6 {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.nav-tabs {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-tabs .nav-link {
+    color: var(--text-muted);
+    border: none;
+    border-radius: 0;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--text-light);
+    background: transparent;
+    border-bottom: 3px solid #667eea;
+}
+
+/* Login/Register Background */
+.bg-image {
+    background: var(--primary-gradient);
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.bg-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* Chart Container */
+canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sb-sidenav {
+        width: 100%;
+        position: relative;
+    }
+    
+    .container2 {
+        padding: 1rem;
+    }
+    
+
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-gradient);
+}
+
+/* Animation for cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Footer */
+.sb-sidenav-footer {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: var(--border-radius) !important;
+    padding: 1rem 1.5rem !important;
+}
+
+.breadcrumb-item a {
+    color: #667eea !important;
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    color: var(--text-light) !important;
+}
+
+/* Expense Category Select */
+.Category {
+    width: 100%;
+    padding: 0.75rem;
+}
+
+/* Icon Styles */
+.fa, .fas {
+    margin-right: 0.5rem;
+}
+
+.fa-plus-circle {
+    font-size: 48px !important;
+    color: #fff !important;
+    transition: transform 0.3s ease;
+}
+
+.fa-plus-circle:hover {
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* Profile Edit Button */
+.profile-edit-btn {
+    background: var(--success-gradient) !important;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-edit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.6);
+}
+
+.profile-edit-btn a {
+    color: white !important;
+    text-decoration: none;
+}
+
+/* Data Table Wrapper */
+.dataTables_wrapper {
+    color: var(--text-light) !important;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    color: var(--text-light) !important;
+}
+
+/* Link Styles */
+a {
+    color: #667eea;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #764ba2;
+}
+
+/* Main Content Area */
+#layoutSidenav_content {
+    margin-left: 250px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+/* Utility Classes */
+.text-gradient {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.shadow-gradient {
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+}
+
+/* Add Money Section - Positioned Below Table */
+.add-money-section {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

@@ -1,0 +1,12 @@
+
+Django==4.2.19
+gunicorn==23.0.0
+setuptools>=75
+
+expensewarninglib==0.2.0
+boto3
+pandas
+openpyxl
+psycopg2-binary==2.9.9
+requests
+pillow
